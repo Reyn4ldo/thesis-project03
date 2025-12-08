@@ -147,6 +147,13 @@ This sample can be used for:
    - Scored resistance counts available
    - Number of antibiotics tested tracked
 
+#### 📝 Data Quality Notes
+
+1. **Antibiotic Naming**
+   - The source data contains "imepenem" which is likely a misspelling of "imipenem" (carbapenem antibiotic)
+   - All references maintained as-is to match source data schema
+   - Future data cleaning phases should consider standardizing antibiotic nomenclature
+
 ## Technical Details
 
 ### Antibiotics in Dataset (23 total)
@@ -162,7 +169,7 @@ This sample can be used for:
 - Cefovecin
 - Ceftiofur
 - Ceftazidime/avibactam
-- Imipenem
+- Imipenem (Note: spelled "imepenem" in source data)
 
 **Aminoglycosides (3)**:
 - Amikacin
