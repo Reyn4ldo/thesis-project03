@@ -49,6 +49,12 @@ Thumbs.db
 *.temp
 processed_data/
 temp_data/
+processed_data.csv
+train_data.csv
+val_data.csv
+test_data.csv
+preprocessing_pipeline.pkl
+preprocessing_pipeline.json
 
 # Logs
 *.log

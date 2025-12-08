@@ -1,16 +1,54 @@
-# Phase 0 — Initial Setup & Data Understanding
+# Antibiotic Resistance Surveillance Thesis Project
 
 ## Overview
-This repository contains the deliverables for Phase 0 of the antibiotic resistance surveillance thesis project. The objective is to gain comprehensive understanding of the dataset, confirm data schema, and prepare for subsequent analysis phases.
+This repository contains the implementation of a comprehensive antibiotic resistance surveillance analysis pipeline. The project processes bacterial isolate data from environmental and aquaculture sources in the Philippines to analyze resistance patterns and develop predictive models.
+
+## Project Structure
+
+```
+thesis-project03/
+├── README.md                      # This file
+├── data_dictionary.json           # Data schema documentation
+├── raw - data.csv                 # Original dataset (583 isolates)
+├── sample_data.csv                # Sample subset (50 isolates)
+├── preprocessing/                 # Phase 1: Preprocessing module
+│   ├── __init__.py
+│   ├── mic_sir_cleaner.py        # MIC/SIR cleaning
+│   ├── imputer.py                # Missing value imputation
+│   ├── feature_engineer.py       # Feature engineering
+│   ├── data_splitter.py          # Data splitting
+│   ├── pipeline.py               # Complete pipeline
+│   └── README.md                 # Module documentation
+├── tests/                         # Unit tests
+│   └── test_preprocessing.py     # Preprocessing tests
+├── phase0_data_analysis.py        # Phase 0: Data understanding
+├── phase1_preprocessing.py        # Phase 1: Preprocessing pipeline
+├── PHASE0_SUMMARY.md             # Phase 0 summary
+├── PHASE1_SUMMARY.md             # Phase 1 summary
+└── .gitignore
+```
 
 ## Dataset Summary
 - **Total isolates**: 583 bacterial samples
-- **Total fields**: 58 columns
+- **Original fields**: 58 columns
+- **Processed fields**: 290 columns (after feature engineering)
 - **Unique species**: 13 bacterial species
 - **Sample sources**: 9 different environmental and biological sources
 - **Geographic coverage**: 3 administrative regions in the Philippines
+- **Antibiotics tested**: 23 antibiotics across 5 classes
 
-## Deliverables
+---
+
+## Phase 0 — Initial Setup & Data Understanding
+
+### Objectives ✅ Complete
+- Gain access to representative data sample
+- Confirm data schema and labels
+- Document missingness patterns
+- Validate metadata fields
+- Assess data quality
+
+### Key Deliverables
 
 ### 1. Data Dictionary (`data_dictionary.json`)
 A comprehensive JSON file documenting:
@@ -275,12 +313,229 @@ python3
    - Develop separate models for subsets with complete data
    - Implement multiple imputation strategies
 
+---
+
+## Phase 1 — Data Cleaning & Feature Engineering
+
+### Objectives ✅ Complete
+- Create robust, reproducible preprocessing pipelines
+- Normalize and clean MIC/SIR values
+- Impute missing values with domain-aware strategies
+- Engineer comprehensive feature set for modeling
+- Create stratified train/validation/test splits
+- Implement data validation tests
+
+### Key Deliverables
+
+1. **Preprocessing Module** (`preprocessing/`)
+   - Reusable, modular components
+   - scikit-learn compatible transformers
+   - Save/load functionality for reproducibility
+
+2. **Processed Datasets**
+   - `processed_data.csv` - Full processed dataset (290 columns)
+   - `train_data.csv` - Training set (407 isolates, 69.8%)
+   - `val_data.csv` - Validation set (59 isolates, 10.1%)
+   - `test_data.csv` - Test set (117 isolates, 20.1%)
+
+3. **Saved Pipeline**
+   - `preprocessing_pipeline.pkl` - Fitted pipeline
+   - `preprocessing_pipeline.json` - Configuration
+
+4. **Data Validation Tests**
+   - 19 unit tests covering all components
+   - Range validation, consistency checks
+   - Data leak detection
+
+### Features Implemented
+
+#### 1. Data Cleaning
+- **MIC Normalization**: Unicode operators (≤, ≥) standardized to ASCII (<=, >=)
+- **S/I/R Standardization**: Cleaned to lowercase, removed asterisks
+- **Inconsistency Detection**: Flags potential MIC/SIR mismatches
+- **Special Value Handling**: Invalid values (trm, c) handled appropriately
+
+#### 2. Missing Value Imputation
+- **MIC Values**: Median or KNN imputation strategies
+- **S/I/R Values**: Domain-aware 'not_tested' category
+- **Indicator Flags**: Binary flags track which values were imputed
+- **Statistics**: 1,480 MIC values and 2,433 S/I/R values imputed
+
+#### 3. Feature Engineering
+Created **232 new features** including:
+
+- **Binary Resistance Indicators** (24 features)
+  - `{antibiotic}_resistant`: 0/1 encoding per antibiotic
+
+- **Antibiogram Fingerprints** (23 features)
+  - Resistance vectors: -1 (not tested), 0 (S), 0.5 (I), 1 (R)
+
+- **Aggregate Metrics** (16 features)
+  - Total resistant/susceptible counts
+  - Resistance ratios overall and per antibiotic class
+  - Class-specific resistance counts (β-lactams, aminoglycosides, etc.)
+
+- **WHO Priority Tracking** (2 features)
+  - Resistance to WHO critical antibiotics
+  - Ratio of WHO priority resistance
+
+- **Metadata Encoding** (6 features)
+  - Species, region, site, source encoded
+  - Label encoding for efficiency
+
+- **MAR Index Validation**
+  - Validation flag for existing MAR calculations
+  - Detection of 23 discrepancies
+
+#### 4. Data Splitting
+- **Stratification**: By bacterial species
+- **No Data Leakage**: Verified through unit tests
+- **Balanced Splits**: Maintains species distribution across sets
+- **Reproducible**: Fixed random seed (42)
+
+### Usage
+
+#### Quick Start
+```bash
+# Install dependencies
+pip install pandas numpy scikit-learn joblib
+
+# Run complete pipeline
+python phase1_preprocessing.py
+```
+
+#### Programmatic Usage
+```python
+from preprocessing.pipeline import PreprocessingPipelineWrapper
+
+# Create and fit pipeline
+pipeline = PreprocessingPipelineWrapper(config={'verbose': True})
+processed_df = pipeline.fit_transform(raw_df)
+
+# Save for later use
+pipeline.save('my_pipeline')
+
+# Load and reuse
+loaded_pipeline = PreprocessingPipelineWrapper.load('my_pipeline')
+new_processed_df = loaded_pipeline.transform(new_data)
+```
+
+#### Running Tests
+```bash
+python tests/test_preprocessing.py
+```
+
+### Data Quality Improvements
+
+✅ **MIC Values**: 10,524 values cleaned and normalized  
+✅ **S/I/R Labels**: 11,806 values standardized  
+✅ **Inconsistencies**: 225 potential MIC/SIR inconsistencies flagged  
+✅ **Missing Data**: Comprehensive imputation with transparency flags  
+✅ **Features**: 232 engineered features ready for modeling  
+✅ **Validation**: 19 unit tests ensure data quality  
+
+### Key Statistics
+
+- **Imputation Coverage**: 38.8% of MIC values, 100% of missing S/I/R
+- **Feature Expansion**: 58 → 290 columns (5x increase)
+- **Data Splits**: Stratified to preserve species distribution
+- **MAR Discrepancies**: 23 cases identified for review
+
+### Next Steps → Phase 2
+
+With clean, engineered data ready:
+- Exploratory data analysis
+- Resistance pattern visualization
+- Co-resistance network analysis
+- Statistical hypothesis testing
+- Species-specific profiling
+
+---
+
+## Technical Details
+
+### Antibiotics in Dataset (23 total)
+
+**β-lactams (11)**:
+- Ampicillin
+- Amoxicillin/clavulanic acid
+- Ceftaroline
+- Cefalexin
+- Cefalotin
+- Cefpodoxime
+- Cefotaxime
+- Cefovecin
+- Ceftiofur
+- Ceftazidime/avibactam
+- Imipenem (Note: spelled "imepenem" in source data)
+
+**Aminoglycosides (3)**:
+- Amikacin
+- Gentamicin
+- Neomycin
+
+**Fluoroquinolones (4)**:
+- Nalidixic acid
+- Enrofloxacin
+- Marbofloxacin
+- Pradofloxacin
+
+**Tetracyclines (2)**:
+- Doxycycline
+- Tetracycline
+
+**Others (3)**:
+- Nitrofurantoin
+- Chloramphenicol
+- Trimethoprim/sulfamethazole
+
+### Geographic Coverage
+
+**Regions**:
+1. BARMM (309 isolates, 53.0%)
+2. Region III - Central Luzon (153 isolates, 26.2%)
+3. Region VIII - Eastern Visayas (121 isolates, 20.8%)
+
+**Sites**:
+- Marawi City (BARMM): 309 isolates
+- Pampanga (Central Luzon): 153 isolates
+- Ormoc (Eastern Visayas): 121 isolates
+
+## Installation and Setup
+
+### Requirements
+```bash
+pip install pandas numpy scikit-learn joblib
+```
+
+### Running Phase 0 (Data Understanding)
+```bash
+python phase0_data_analysis.py
+```
+
+Generates:
+- `data_dictionary.json` - Schema documentation
+- `sanity_check_report.txt` - Quality assessment
+- `sample_data.csv` - Representative sample
+
+### Running Phase 1 (Preprocessing)
+```bash
+python phase1_preprocessing.py
+```
+
+Generates:
+- `processed_data.csv` - Fully processed dataset
+- `train_data.csv`, `val_data.csv`, `test_data.csv` - Data splits
+- `preprocessing_pipeline.pkl/.json` - Saved pipeline
+- `PHASE1_SUMMARY.md` - Processing report
+
 ## Contact and Citation
 
 For questions about this analysis or access to additional data, please contact the project maintainers.
 
 ---
 
-**Last Updated**: December 8, 2024
-**Analysis Script Version**: 1.0
+**Last Updated**: December 8, 2024  
+**Phase 0 Version**: 1.0  
+**Phase 1 Version**: 1.0  
 **Dataset**: raw - data.csv (583 isolates)
