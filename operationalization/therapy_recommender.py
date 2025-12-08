@@ -128,6 +128,8 @@ class EmpiricTherapyRecommender:
             Ranked list of antibiotic recommendations with probabilities
         """
         # Auto-detect antibiotic columns
+        # Note: Assumes columns follow '_sir' naming convention (e.g., 'ciprofloxacin_sir')
+        # To use different naming, provide antibiotic_columns explicitly
         if antibiotic_columns is None:
             antibiotic_columns = [col for col in df.columns if col.endswith('_sir')]
         

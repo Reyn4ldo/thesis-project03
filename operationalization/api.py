@@ -9,44 +9,18 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict
+from contextlib import asynccontextmanager
 import pandas as pd
 import joblib
 import numpy as np
 from pathlib import Path
 import json
 
-# Initialize FastAPI app
-app = FastAPI(
-    title="AMR Surveillance API",
-    description="API for antimicrobial resistance predictions and recommendations",
-    version="1.0.0"
-)
-
 # Global model registry
 models = {}
 preprocessing_pipeline = None
 antibiogram_generator = None
 therapy_recommender = None
-
-
-class IsolateData(BaseModel):
-    """Input data for a single isolate."""
-    features: Dict[str, float]
-    metadata: Optional[Dict[str, str]] = None
-
-
-class BatchPredictionRequest(BaseModel):
-    """Batch prediction request."""
-    isolates: List[IsolateData]
-    model_name: str = "esbl_classifier"
-
-
-class TherapyRequest(BaseModel):
-    """Therapy recommendation request."""
-    species: Optional[str] = None
-    site: Optional[str] = None
-    source: Optional[str] = None
-    contraindications: Optional[List[str]] = None
 
 
 def load_models(model_dir: str = "models"):
@@ -84,11 +58,44 @@ def initialize_components():
     print("Initialized operational components")
 
 
-@app.on_event("startup")
-async def startup_event():
-    """Load models and initialize components on startup."""
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan manager."""
+    # Startup
     load_models()
     initialize_components()
+    yield
+    # Shutdown
+    pass
+
+
+# Initialize FastAPI app with lifespan
+app = FastAPI(
+    title="AMR Surveillance API",
+    description="API for antimicrobial resistance predictions and recommendations",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+
+class IsolateData(BaseModel):
+    """Input data for a single isolate."""
+    features: Dict[str, float]
+    metadata: Optional[Dict[str, str]] = None
+
+
+class BatchPredictionRequest(BaseModel):
+    """Batch prediction request."""
+    isolates: List[IsolateData]
+    model_name: str = "esbl_classifier"
+
+
+class TherapyRequest(BaseModel):
+    """Therapy recommendation request."""
+    species: Optional[str] = None
+    site: Optional[str] = None
+    source: Optional[str] = None
+    contraindications: Optional[List[str]] = None
 
 
 @app.get("/")

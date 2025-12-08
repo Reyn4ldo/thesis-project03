@@ -123,8 +123,13 @@ class BatchScoringPipeline:
         
         # Preprocess data if pipeline available
         if self.preprocessing_pipeline:
-            df_processed = self.preprocessing_pipeline.transform(df)
+            try:
+                df_processed = self.preprocessing_pipeline.transform(df)
+            except Exception as e:
+                print(f"Warning: Preprocessing failed: {e}. Using raw data.")
+                df_processed = df
         else:
+            print("Warning: No preprocessing pipeline available. Using raw data.")
             df_processed = df
         
         # Run predictions for each model
