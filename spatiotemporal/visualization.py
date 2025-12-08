@@ -454,8 +454,11 @@ class SpatioTemporalVisualizer:
         # Hotspot maps
         if spatial_analyzer and spatial_analyzer.hotspots:
             self.plot_hotspot_map(spatial_analyzer.hotspots, level='regional')
-            if 'site' in next(iter(spatial_analyzer.hotspots.values())):
-                self.plot_hotspot_map(spatial_analyzer.hotspots, level='site')
+            # Check for site-level hotspots
+            if spatial_analyzer.hotspots and len(spatial_analyzer.hotspots) > 0:
+                first_antibiotic_data = next(iter(spatial_analyzer.hotspots.values()))
+                if 'site' in first_antibiotic_data:
+                    self.plot_hotspot_map(spatial_analyzer.hotspots, level='site')
                 
         # Dashboard
         self.create_dashboard(
