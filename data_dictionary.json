@@ -1,0 +1,945 @@
+{
+  "dataset_info": {
+    "total_rows": 583,
+    "total_columns": 58,
+    "file_description": "Antibiotic resistance surveillance dataset"
+  },
+  "columns": {
+    "bacterial_species": {
+      "dtype": "object",
+      "non_null_count": 581,
+      "null_count": 2,
+      "null_percentage": 0.34,
+      "unique_values": 13,
+      "category": "metadata",
+      "description": "Species identification of the bacterial isolate",
+      "unique_value_counts": {
+        "escherichia_coli": 235,
+        "klebsiella_pneumoniae_ssp_pneumoniae": 158,
+        "enterobacter_cloacae_complex": 70,
+        "pseudomonas_aeruginosa": 38,
+        "enterobacter_aerogenes": 24,
+        "salmonella_group": 22,
+        "vibrio_cholerae": 17,
+        "vibrio_fluvialis": 10,
+        "klebsiella_pneumoniae_ssp_ozaenae": 2,
+        "salmonella_enterica_spp_diarizonae": 2,
+        "vibrio_vulnificus": 1,
+        "acinetobacter_baumannii": 1,
+        "klebsiella_pneumoniae_spp_ozaenae": 1
+      }
+    },
+    "isolate_code": {
+      "dtype": "object",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 581,
+      "category": "metadata",
+      "description": "Unique identifier for each isolate"
+    },
+    "administrative_region": {
+      "dtype": "object",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 3,
+      "category": "metadata",
+      "description": "Geographic administrative region",
+      "unique_value_counts": {
+        "barmm": 309,
+        "region_iii_central_luzon": 153,
+        "region_viii_eastern_visayas": 121
+      }
+    },
+    "national_site": {
+      "dtype": "object",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 3,
+      "category": "metadata",
+      "description": "National-level site identifier",
+      "unique_value_counts": {
+        "marawi_city": 309,
+        "pampanga": 153,
+        "ormoc": 121
+      }
+    },
+    "local_site": {
+      "dtype": "object",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 9,
+      "category": "metadata",
+      "description": "Local site identifier",
+      "unique_value_counts": {
+        "tuca_kialdan": 99,
+        "apmc": 86,
+        "san_gabriel": 83,
+        "san_roque": 70,
+        "gadongan": 70,
+        "alegria": 63,
+        "larrazabal": 57,
+        "dayawan": 54,
+        "od_hospital": 1
+      }
+    },
+    "sample_source": {
+      "dtype": "object",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 9,
+      "category": "metadata",
+      "description": "Source of the sample (e.g., water, fish)",
+      "unique_value_counts": {
+        "fish_tilapia": 115,
+        "drinking_water": 87,
+        "fish_gusaw": 79,
+        "effluent_water_untreated": 71,
+        "river_water": 70,
+        "fish_kaolang": 52,
+        "lake_water": 51,
+        "fish_banak": 41,
+        "effluent_water_treated": 17
+      }
+    },
+    "replicate": {
+      "dtype": "int64",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 3,
+      "category": "metadata",
+      "description": "Replicate number for the sample",
+      "unique_value_counts": {
+        "1": 208,
+        "3": 208,
+        "2": 167
+      }
+    },
+    "colony": {
+      "dtype": "int64",
+      "non_null_count": 583,
+      "null_count": 0,
+      "null_percentage": 0.0,
+      "unique_values": 33,
+      "category": "metadata",
+      "description": "Colony number"
+    },
+    "esbl": {
+      "dtype": "object",
+      "non_null_count": 402,
+      "null_count": 181,
+      "null_percentage": 31.05,
+      "unique_values": 2,
+      "category": "metadata",
+      "description": "Extended-spectrum beta-lactamase (ESBL) status",
+      "unique_value_counts": {
+        "neg": 396,
+        "pos": 6
+      }
+    },
+    "ampicillin_mic": {
+      "dtype": "object",
+      "non_null_count": 426,
+      "null_count": 157,
+      "null_percentage": 26.93,
+      "unique_values": 14,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Ampicillin",
+      "unique_value_counts": {
+        ">=32": 115,
+        "\u22642": 52,
+        "16": 51,
+        "4": 51,
+        "8": 45,
+        "<=2": 43,
+        "\u226532": 42,
+        "<=8": 10,
+        "<=2*": 5,
+        "\u22642*": 4,
+        "4*": 3,
+        "8*": 3,
+        "c": 1,
+        ">=33": 1
+      }
+    },
+    "ampicillin_int": {
+      "dtype": "object",
+      "non_null_count": 428,
+      "null_count": 155,
+      "null_percentage": 26.59,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Ampicillin",
+      "unique_value_counts": {
+        "r": 179,
+        "s": 179,
+        "*r": 66,
+        "i": 4
+      }
+    },
+    "amoxicillin/clavulanic_acid_mic": {
+      "dtype": "object",
+      "non_null_count": 507,
+      "null_count": 76,
+      "null_percentage": 13.04,
+      "unique_values": 8,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Amoxicillin/Clavulanic Acid",
+      "unique_value_counts": {
+        "<=2": 173,
+        "\u22642": 146,
+        "4": 102,
+        "\u226532": 26,
+        "8": 24,
+        ">=32": 21,
+        "16": 14,
+        "<=32": 1
+      }
+    },
+    "amoxicillin/clavulanic_acid_int": {
+      "dtype": "object",
+      "non_null_count": 508,
+      "null_count": 75,
+      "null_percentage": 12.86,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Amoxicillin/Clavulanic Acid",
+      "unique_value_counts": {
+        "s": 407,
+        "r": 52,
+        "*r": 41,
+        "i": 8
+      }
+    },
+    "ceftaroline_mic": {
+      "dtype": "float64",
+      "non_null_count": 0,
+      "null_count": 583,
+      "null_percentage": 100.0,
+      "unique_values": 0,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Ceftaroline",
+      "unique_value_counts": {}
+    },
+    "ceftaroline_int": {
+      "dtype": "object",
+      "non_null_count": 404,
+      "null_count": 179,
+      "null_percentage": 30.7,
+      "unique_values": 2,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Ceftaroline",
+      "unique_value_counts": {
+        "s": 400,
+        "r": 4
+      }
+    },
+    "cefalexin_mic": {
+      "dtype": "object",
+      "non_null_count": 489,
+      "null_count": 94,
+      "null_percentage": 16.12,
+      "unique_values": 11,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Cefalexin",
+      "unique_value_counts": {
+        "8": 135,
+        "<=4": 112,
+        "\u22644": 90,
+        ">=64": 59,
+        "\u226564": 37,
+        "16": 27,
+        "32": 13,
+        "\u226464": 11,
+        ">=4": 3,
+        ">=64*": 1,
+        "<=64": 1
+      }
+    },
+    "cefalexin_int": {
+      "dtype": "object",
+      "non_null_count": 490,
+      "null_count": 93,
+      "null_percentage": 15.95,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Cefalexin",
+      "unique_value_counts": {
+        "s": 322,
+        "r": 146,
+        "*r": 22
+      }
+    },
+    "cefalotin_mic": {
+      "dtype": "object",
+      "non_null_count": 493,
+      "null_count": 90,
+      "null_percentage": 15.44,
+      "unique_values": 13,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Cefalotin",
+      "unique_value_counts": {
+        "4": 188,
+        "<=2": 82,
+        "\u22642": 71,
+        "16": 53,
+        ">=64": 39,
+        "32": 22,
+        "8": 19,
+        "\u226564": 11,
+        "4*": 4,
+        ">=65": 1,
+        ">=2": 1,
+        "<=64": 1,
+        "<=2*": 1
+      }
+    },
+    "cefalotin_int": {
+      "dtype": "object",
+      "non_null_count": 494,
+      "null_count": 89,
+      "null_percentage": 15.27,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Cefalotin",
+      "unique_value_counts": {
+        "s": 336,
+        "r": 98,
+        "*r": 33,
+        "i": 27
+      }
+    },
+    "cefpodoxime_mic": {
+      "dtype": "object",
+      "non_null_count": 493,
+      "null_count": 90,
+      "null_percentage": 15.44,
+      "unique_values": 8,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Cefpodoxime",
+      "unique_value_counts": {
+        "<=0.25": 215,
+        "\u22640.25": 182,
+        "0.5": 64,
+        "2": 15,
+        ">=8": 8,
+        "1": 5,
+        "4": 3,
+        "\u22658": 1
+      }
+    },
+    "cefpodoxime_int": {
+      "dtype": "object",
+      "non_null_count": 494,
+      "null_count": 89,
+      "null_percentage": 15.27,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Cefpodoxime",
+      "unique_value_counts": {
+        "s": 483,
+        "r": 8,
+        "i": 3
+      }
+    },
+    "cefotaxime_mic": {
+      "dtype": "float64",
+      "non_null_count": 0,
+      "null_count": 583,
+      "null_percentage": 100.0,
+      "unique_values": 0,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Cefotaxime",
+      "unique_value_counts": {}
+    },
+    "cefotaxime_int": {
+      "dtype": "object",
+      "non_null_count": 467,
+      "null_count": 116,
+      "null_percentage": 19.9,
+      "unique_values": 2,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Cefotaxime",
+      "unique_value_counts": {
+        "s": 450,
+        "r": 17
+      }
+    },
+    "cefovecin_mic": {
+      "dtype": "object",
+      "non_null_count": 521,
+      "null_count": 62,
+      "null_percentage": 10.63,
+      "unique_values": 7,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Cefovecin",
+      "unique_value_counts": {
+        "<=0.5": 220,
+        "1": 131,
+        "\u22640.5": 78,
+        "2": 42,
+        ">=8": 25,
+        "4": 16,
+        "\u22658": 9
+      }
+    },
+    "cefovecin_int": {
+      "dtype": "object",
+      "non_null_count": 523,
+      "null_count": 60,
+      "null_percentage": 10.29,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Cefovecin",
+      "unique_value_counts": {
+        "s": 473,
+        "r": 33,
+        "i": 17
+      }
+    },
+    "ceftiofur_mic": {
+      "dtype": "object",
+      "non_null_count": 520,
+      "null_count": 63,
+      "null_percentage": 10.81,
+      "unique_values": 7,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Ceftiofur",
+      "unique_value_counts": {
+        "<=1": 276,
+        "\u22641": 137,
+        "2": 32,
+        "4": 31,
+        ">=8": 24,
+        "\u22658": 19,
+        "1": 1
+      }
+    },
+    "ceftiofur_int": {
+      "dtype": "object",
+      "non_null_count": 521,
+      "null_count": 62,
+      "null_percentage": 10.63,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Ceftiofur",
+      "unique_value_counts": {
+        "s": 445,
+        "r": 44,
+        "i": 32
+      }
+    },
+    "ceftazidime/avibactam_mic": {
+      "dtype": "float64",
+      "non_null_count": 0,
+      "null_count": 583,
+      "null_percentage": 100.0,
+      "unique_values": 0,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Ceftazidime/Avibactam",
+      "unique_value_counts": {}
+    },
+    "ceftazidime/avibactam_int": {
+      "dtype": "object",
+      "non_null_count": 482,
+      "null_count": 101,
+      "null_percentage": 17.32,
+      "unique_values": 1,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Ceftazidime/Avibactam",
+      "unique_value_counts": {
+        "s": 482
+      }
+    },
+    "imepenem_mic": {
+      "dtype": "object",
+      "non_null_count": 524,
+      "null_count": 59,
+      "null_percentage": 10.12,
+      "unique_values": 10,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Imepenem",
+      "unique_value_counts": {
+        "<=0.25": 289,
+        "\u22640.25": 165,
+        "1": 28,
+        "0.5": 20,
+        "2": 9,
+        "<=0.27": 7,
+        ">=16": 3,
+        "<=0.26": 1,
+        "<=0.5": 1,
+        "8*": 1
+      }
+    },
+    "imepenem_int": {
+      "dtype": "object",
+      "non_null_count": 526,
+      "null_count": 57,
+      "null_percentage": 9.78,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Imepenem",
+      "unique_value_counts": {
+        "s": 520,
+        "i": 3,
+        "r": 3
+      }
+    },
+    "amikacin_mic": {
+      "dtype": "object",
+      "non_null_count": 524,
+      "null_count": 59,
+      "null_percentage": 10.12,
+      "unique_values": 4,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Amikacin",
+      "unique_value_counts": {
+        "<=2": 338,
+        "\u22642": 183,
+        "4": 2,
+        "<=3": 1
+      }
+    },
+    "amikacin_int": {
+      "dtype": "object",
+      "non_null_count": 524,
+      "null_count": 59,
+      "null_percentage": 10.12,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Amikacin",
+      "unique_value_counts": {
+        "s": 500,
+        "r": 22,
+        "*r": 2
+      }
+    },
+    "gentamicin_mic": {
+      "dtype": "object",
+      "non_null_count": 525,
+      "null_count": 58,
+      "null_percentage": 9.95,
+      "unique_values": 6,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Gentamicin",
+      "unique_value_counts": {
+        "<=1": 337,
+        "\u22641": 182,
+        ">=16": 2,
+        "2": 2,
+        "4": 1,
+        "8": 1
+      }
+    },
+    "gentamicin_int": {
+      "dtype": "object",
+      "non_null_count": 526,
+      "null_count": 57,
+      "null_percentage": 9.78,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Gentamicin",
+      "unique_value_counts": {
+        "s": 499,
+        "r": 24,
+        "*r": 2,
+        "i": 1
+      }
+    },
+    "neomycin_mic": {
+      "dtype": "object",
+      "non_null_count": 494,
+      "null_count": 89,
+      "null_percentage": 15.27,
+      "unique_values": 6,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Neomycin",
+      "unique_value_counts": {
+        "<=2": 311,
+        "\u22642": 176,
+        "16": 3,
+        "trm": 2,
+        ">=64": 1,
+        "4": 1
+      }
+    },
+    "neomycin_int": {
+      "dtype": "object",
+      "non_null_count": 492,
+      "null_count": 91,
+      "null_percentage": 15.61,
+      "unique_values": 2,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Neomycin",
+      "unique_value_counts": {
+        "s": 489,
+        "i": 3
+      }
+    },
+    "nalidixic_acid_mic": {
+      "dtype": "float64",
+      "non_null_count": 0,
+      "null_count": 583,
+      "null_percentage": 100.0,
+      "unique_values": 0,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Nalidixic Acid",
+      "unique_value_counts": {}
+    },
+    "nalidixic_acid_int": {
+      "dtype": "float64",
+      "non_null_count": 0,
+      "null_count": 583,
+      "null_percentage": 100.0,
+      "unique_values": 0,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Nalidixic Acid",
+      "unique_value_counts": {}
+    },
+    "enrofloxacin_mic": {
+      "dtype": "object",
+      "non_null_count": 520,
+      "null_count": 63,
+      "null_percentage": 10.81,
+      "unique_values": 12,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Enrofloxacin",
+      "unique_value_counts": {
+        "<=0.12": 278,
+        "\u22640.12": 135,
+        "1": 61,
+        "0.5": 23,
+        "0.25": 12,
+        "2": 3,
+        "<=2": 2,
+        ">=4": 2,
+        "\u22654": 1,
+        "<=0.25": 1,
+        "trm": 1,
+        "0,5": 1
+      }
+    },
+    "enrofloxacin_int": {
+      "dtype": "object",
+      "non_null_count": 520,
+      "null_count": 63,
+      "null_percentage": 10.81,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Enrofloxacin",
+      "unique_value_counts": {
+        "s": 454,
+        "i": 63,
+        "r": 3
+      }
+    },
+    "marbofloxacin_mic": {
+      "dtype": "object",
+      "non_null_count": 525,
+      "null_count": 58,
+      "null_percentage": 9.95,
+      "unique_values": 6,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Marbofloxacin",
+      "unique_value_counts": {
+        "<=0.5": 327,
+        "\u22640.5": 180,
+        "1": 14,
+        ">=4": 2,
+        "trm": 1,
+        "2": 1
+      }
+    },
+    "marbofloxacin_int": {
+      "dtype": "object",
+      "non_null_count": 525,
+      "null_count": 58,
+      "null_percentage": 9.95,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Marbofloxacin",
+      "unique_value_counts": {
+        "s": 522,
+        "r": 2,
+        "i": 1
+      }
+    },
+    "pradofloxacin_mic": {
+      "dtype": "object",
+      "non_null_count": 493,
+      "null_count": 90,
+      "null_percentage": 15.44,
+      "unique_values": 11,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Pradofloxacin",
+      "unique_value_counts": {
+        "<=0.12": 285,
+        "\u22640.12": 148,
+        "0.25": 34,
+        "0.5": 9,
+        "1": 5,
+        "\u22640.25": 4,
+        "<=-0.12": 3,
+        ">=4": 2,
+        "2": 1,
+        "16": 1,
+        "<=0.25": 1
+      }
+    },
+    "pradofloxacin_int": {
+      "dtype": "object",
+      "non_null_count": 494,
+      "null_count": 89,
+      "null_percentage": 15.27,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Pradofloxacin",
+      "unique_value_counts": {
+        "s": 477,
+        "i": 14,
+        "r": 3
+      }
+    },
+    "doxycycline_mic": {
+      "dtype": "object",
+      "non_null_count": 502,
+      "null_count": 81,
+      "null_percentage": 13.89,
+      "unique_values": 12,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Doxycycline",
+      "unique_value_counts": {
+        "1": 281,
+        ">=16": 61,
+        "2": 47,
+        "\u226516": 45,
+        "<=0.5": 22,
+        "4": 21,
+        "8": 13,
+        "\u22640.5": 7,
+        "2*": 2,
+        "\u226416": 1,
+        "1*": 1,
+        "trm": 1
+      }
+    },
+    "doxycycline_int": {
+      "dtype": "object",
+      "non_null_count": 502,
+      "null_count": 81,
+      "null_percentage": 13.89,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Doxycycline",
+      "unique_value_counts": {
+        "s": 378,
+        "r": 107,
+        "i": 14,
+        "*i": 3
+      }
+    },
+    "tetracycline_mic": {
+      "dtype": "object",
+      "non_null_count": 519,
+      "null_count": 64,
+      "null_percentage": 10.98,
+      "unique_values": 12,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Tetracycline",
+      "unique_value_counts": {
+        "<=1": 260,
+        "\u22641": 84,
+        ">=16": 70,
+        "\u226516": 51,
+        "2": 28,
+        "4": 7,
+        "<=4": 7,
+        "8": 6,
+        "<=16": 3,
+        "\u226416": 1,
+        "<=0.5": 1,
+        "2*": 1
+      }
+    },
+    "tetracycline_int": {
+      "dtype": "object",
+      "non_null_count": 521,
+      "null_count": 62,
+      "null_percentage": 10.63,
+      "unique_values": 4,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Tetracycline",
+      "unique_value_counts": {
+        "s": 388,
+        "r": 126,
+        "i": 6,
+        "*i": 1
+      }
+    },
+    "nitrofurantoin_mic": {
+      "dtype": "object",
+      "non_null_count": 493,
+      "null_count": 90,
+      "null_percentage": 15.44,
+      "unique_values": 7,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Nitrofurantoin",
+      "unique_value_counts": {
+        "<=16": 187,
+        "64": 104,
+        "\u226416": 96,
+        "32": 92,
+        "128": 12,
+        "\u226564": 1,
+        "<=1": 1
+      }
+    },
+    "nitrofurantoin_int": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 88,
+      "null_percentage": 15.09,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Nitrofurantoin",
+      "unique_value_counts": {
+        "s": 377,
+        "i": 106,
+        "r": 12
+      }
+    },
+    "chloramphenicol_mic": {
+      "dtype": "object",
+      "non_null_count": 518,
+      "null_count": 65,
+      "null_percentage": 11.15,
+      "unique_values": 9,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Chloramphenicol",
+      "unique_value_counts": {
+        "4": 168,
+        "<=2": 124,
+        "8": 86,
+        "\u22642": 62,
+        "16": 28,
+        "\u226564": 20,
+        "<=8": 11,
+        "32": 10,
+        ">=64": 9
+      }
+    },
+    "chloramphenicol_int": {
+      "dtype": "object",
+      "non_null_count": 520,
+      "null_count": 63,
+      "null_percentage": 10.81,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Chloramphenicol",
+      "unique_value_counts": {
+        "s": 451,
+        "r": 39,
+        "i": 30
+      }
+    },
+    "trimethoprim/sulfamethazole_mic": {
+      "dtype": "object",
+      "non_null_count": 518,
+      "null_count": 65,
+      "null_percentage": 11.15,
+      "unique_values": 11,
+      "category": "mic_value",
+      "description": "Minimum Inhibitory Concentration (MIC) for Trimethoprim/Sulfamethazole",
+      "unique_value_counts": {
+        "<=20": 285,
+        "\u226420": 151,
+        "\u2265320": 29,
+        ">=320": 28,
+        "<=0.20": 10,
+        "<=2/38": 6,
+        ">=4/76": 4,
+        "<=320": 2,
+        "8": 1,
+        "trm": 1,
+        "40": 1
+      }
+    },
+    "trimethoprim/sulfamethazole_int": {
+      "dtype": "object",
+      "non_null_count": 520,
+      "null_count": 63,
+      "null_percentage": 10.81,
+      "unique_values": 3,
+      "category": "sir_interpretation",
+      "description": "Susceptibility interpretation (S/I/R) for Trimethoprim/Sulfamethazole",
+      "unique_value_counts": {
+        "s": 455,
+        "r": 64,
+        "i": 1
+      }
+    },
+    "scored_resistance": {
+      "dtype": "float64",
+      "non_null_count": 537,
+      "null_count": 46,
+      "null_percentage": 7.89,
+      "unique_values": 13,
+      "category": "outcome",
+      "description": "Number of antibiotics showing resistance",
+      "unique_value_counts": {
+        "1.0": 141,
+        "0.0": 113,
+        "3.0": 111,
+        "2.0": 64,
+        "4.0": 56,
+        "5.0": 19,
+        "6.0": 14,
+        "7.0": 10,
+        "8.0": 3,
+        "10.0": 2,
+        "11.0": 2,
+        "9.0": 1,
+        "15.0": 1
+      }
+    },
+    "num_antibiotics_tested": {
+      "dtype": "float64",
+      "non_null_count": 538,
+      "null_count": 45,
+      "null_percentage": 7.72,
+      "unique_values": 13,
+      "category": "outcome",
+      "description": "Total number of antibiotics tested",
+      "unique_value_counts": {
+        "22.0": 373,
+        "20.0": 58,
+        "19.0": 29,
+        "21.0": 28,
+        "13.0": 13,
+        "4.0": 12,
+        "9.0": 11,
+        "8.0": 7,
+        "16.0": 2,
+        "18.0": 2,
+        "15.0": 1,
+        "17.0": 1,
+        "14.0": 1
+      }
+    },
+    "mar_index": {
+      "dtype": "float64",
+      "non_null_count": 538,
+      "null_count": 45,
+      "null_percentage": 7.72,
+      "unique_values": 41,
+      "category": "outcome",
+      "description": "Multiple Antibiotic Resistance (MAR) index"
+    }
+  }
+}
