@@ -11,6 +11,7 @@ import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+from pathlib import Path
 import umap
 import matplotlib.pyplot as plt
 import seaborn as sns
