@@ -7,7 +7,6 @@ and detection of inconsistencies between MIC values and interpretations.
 
 import pandas as pd
 import numpy as np
-import re
 from sklearn.base import BaseEstimator, TransformerMixin
 import warnings
 
