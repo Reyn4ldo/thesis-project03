@@ -67,3 +67,13 @@ models/*.pkl
 
 # Logs
 *.log
+
+# Results and visualizations
+results/
+visualizations/
+*.png
+*.pdf
+spatial_analysis_*.json
+temporal_analysis_*.json
+temporal_analysis_*.csv
+source_attribution_*.json
