@@ -19,7 +19,6 @@ warnings.filterwarnings('ignore')
 
 from experiments import (
     ESBLClassifierExperiment,
-    MultilabelPredictionExperiment,
     SpeciesClassifierExperiment,
     MARRegressionExperiment
 )

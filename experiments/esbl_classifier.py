@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.metrics import (
     roc_auc_score, average_precision_score, f1_score,
     precision_score, recall_score, accuracy_score,
-    confusion_matrix, classification_report, brier_score_loss,
+    confusion_matrix, brier_score_loss,
     roc_curve, precision_recall_curve
 )
 import matplotlib.pyplot as plt

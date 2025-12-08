@@ -135,10 +135,21 @@ class BaseExperiment(ABC):
         self.best_models = {}
     
     @abstractmethod
-    def prepare_data(self, X, y):
+    def prepare_data(self, df):
         """
         Prepare data for the specific task.
         Must be implemented by subclasses.
+        
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Processed dataframe with features and target
+            
+        Returns
+        -------
+        tuple
+            (X, y, feature_names) where X is feature matrix,
+            y is target, and feature_names is list of feature column names
         """
         pass
     
