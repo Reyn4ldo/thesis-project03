@@ -444,11 +444,138 @@ python tests/test_preprocessing.py
 ### Next Steps → Phase 2
 
 With clean, engineered data ready:
-- Exploratory data analysis
-- Resistance pattern visualization
-- Co-resistance network analysis
-- Statistical hypothesis testing
-- Species-specific profiling
+- Supervised learning experiments
+- Model comparison and selection
+- Interpretability analysis
+
+---
+
+## Phase 2 — Supervised Learning Experiments
+
+### Objectives ✅ Complete
+- Evaluate six algorithms across prediction tasks
+- Implement nested cross-validation for hyperparameter tuning
+- Track experiments with MLflow
+- Generate comprehensive evaluation metrics
+- Create interpretability artifacts
+
+### Key Deliverables
+
+1. **Experiments Module** (`experiments/`)
+   - Base experiment framework with nested CV
+   - ESBL binary classifier
+   - Species multi-class classifier
+   - MAR index regressor
+   - Multi-label R/S prediction framework
+
+2. **Six Algorithms Tested**
+   - Random Forest
+   - Logistic Regression  
+   - Support Vector Machines
+   - Gradient Boosting
+   - K-Nearest Neighbors
+   - Naive Bayes
+
+3. **MLflow Integration**
+   - Experiment tracking
+   - Hyperparameter logging
+   - Model artifact storage
+   - Metrics visualization
+
+### Prediction Tasks Implemented
+
+#### Task 1: Binary ESBL Classification
+**Goal**: Predict ESBL status from resistance profile + metadata
+
+**Features**: 96 features including resistance indicators, antibiograms, aggregates
+
+**Class Distribution**:
+- Training: 407 samples (71% positive, 29% negative)
+- Testing: 117 samples (69% positive)
+
+**Metrics Tracked**:
+- AUROC, AUPRC
+- Accuracy, Precision, Recall, F1
+- Brier score (calibration)
+- Sensitivity at 95% specificity
+- Confusion matrix
+
+#### Task 2: Species Classification
+**Goal**: Predict bacterial species from antibiogram
+
+**Classes**: 13 bacterial species
+
+**Metrics Tracked**:
+- Accuracy
+- Macro/Micro F1
+- Confusion matrix (species confusion patterns)
+
+#### Task 3: MAR Index Regression
+**Goal**: Predict Multiple Antibiotic Resistance index
+
+**Algorithms**: 5 regressors (no Naive Bayes)
+
+**Metrics Tracked**:
+- RMSE, MAE, R²
+- Residual diagnostics
+
+#### Task 4: Multi-label R/S Prediction (Framework)
+**Goal**: Predict R/S for multiple antibiotics simultaneously
+
+**Approaches**: Binary relevance, classifier chains
+
+**Metrics Tracked**:
+- Hamming loss
+- Subset accuracy
+- Per-antibiotic AUROC
+
+### Nested Cross-Validation
+
+**Outer CV** (5 folds):
+- Performance estimation
+- Stratified by target variable
+
+**Inner CV** (3 folds):
+- Hyperparameter tuning with GridSearchCV
+- Consensus parameters from folds
+
+### Usage
+
+```bash
+# Run all experiments
+python phase2_supervised_learning.py
+
+# View MLflow UI
+mlflow ui
+```
+
+**Programmatic**:
+```python
+from experiments import ESBLClassifierExperiment
+
+exp = ESBLClassifierExperiment()
+X_train, y_train, features = exp.prepare_data(train_df)
+X_test, y_test, _ = exp.prepare_data(test_df)
+
+results = exp.run_all_algorithms(X_train, y_train, X_test, y_test)
+exp.save_results()
+```
+
+### Model Artifacts
+
+All models saved to `models/` directory:
+- ESBL classifiers (6 models)
+- Species classifiers (6 models)
+- MAR regressors (5 models)
+- Results JSON files with detailed metrics
+
+### Next Steps → Phase 3
+
+- SHAP analysis for interpretability
+- Calibration curve analysis
+- Decision curve analysis for clinical thresholds
+- Model deployment preparation
+- Ensemble methods exploration
 
 ---
 

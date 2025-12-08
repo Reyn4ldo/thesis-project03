@@ -56,5 +56,14 @@ test_data.csv
 preprocessing_pipeline.pkl
 preprocessing_pipeline.json
 
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Model artifacts
+models/*.pkl
+*.joblib
+
 # Logs
 *.log
