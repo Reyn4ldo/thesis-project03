@@ -172,7 +172,9 @@ class OutlierDetector:
         # Fit and predict
         labels = self.lof.fit_predict(X)
         
-        # Get negative outlier factor (lower is more anomalous)
+        # Get negative outlier factor
+        # Note: More negative values indicate outliers
+        # We negate to make higher scores more anomalous for consistency
         scores = -self.lof.negative_outlier_factor_
         
         n_outliers = (labels == -1).sum()

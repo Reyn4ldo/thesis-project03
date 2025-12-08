@@ -21,7 +21,6 @@ class ConsistencyChecker:
     def __init__(self):
         """Initialize consistency checker."""
         self.inconsistencies = []
-        self.breakpoint_violations = []
         self.suspicious_patterns = []
     
     def check_mic_sir_consistency(self, df):

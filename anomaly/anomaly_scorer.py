@@ -85,6 +85,7 @@ class AnomalyScorer:
             if max_score > min_score:
                 normalized = (method_scores - min_score) / (max_score - min_score)
             else:
+                # All scores are identical - treat as no anomalies
                 normalized = np.zeros_like(method_scores)
             
             # Add weighted contribution
