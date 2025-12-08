@@ -1,0 +1,81 @@
+# SANITY-CHECK REPORT
+# Phase 0 - Initial Setup & Data Understanding
+================================================================================
+
+## DATASET OVERVIEW
+Total isolates: 583
+Total fields: 58
+Unique species: 13
+Unique sample sources: 9
+
+## MISSINGNESS SUMMARY
+Fields with missing data: 51 out of 58
+
+Top 10 fields with highest missingness:
+                   column  missing_count  missing_percentage  present_count
+          ceftaroline_mic            583              100.00              0
+           cefotaxime_mic            583              100.00              0
+ceftazidime/avibactam_mic            583              100.00              0
+       nalidixic_acid_mic            583              100.00              0
+       nalidixic_acid_int            583              100.00              0
+                     esbl            181               31.05            402
+          ceftaroline_int            179               30.70            404
+           ampicillin_mic            157               26.93            426
+           ampicillin_int            155               26.59            428
+           cefotaxime_int            116               19.90            467
+
+## SPECIES DISTRIBUTION
+bacterial_species
+escherichia_coli                        235
+klebsiella_pneumoniae_ssp_pneumoniae    158
+enterobacter_cloacae_complex             70
+pseudomonas_aeruginosa                   38
+enterobacter_aerogenes                   24
+salmonella_group                         22
+vibrio_cholerae                          17
+vibrio_fluvialis                         10
+klebsiella_pneumoniae_ssp_ozaenae         2
+salmonella_enterica_spp_diarizonae        2
+vibrio_vulnificus                         1
+acinetobacter_baumannii                   1
+klebsiella_pneumoniae_spp_ozaenae         1
+
+## S/I/R LABEL BALANCE
+Summary of resistance, intermediate, and susceptible labels:
+Overall: S=9487 (87.8%), I=333 (3.1%), R=986 (9.1%)
+
+## ANTIBIOTIC TESTING CONSISTENCY
+Consistently tested antibiotics (≥90% coverage): 3
+Antibiotics:
+  - imepenem
+  - gentamicin
+  - marbofloxacin
+
+## MAR INDEX STATISTICS
+Mean: 0.1165
+Median: 0.0909
+Range: 0.0000 - 1.5000
+
+## SAMPLE SOURCE DISTRIBUTION
+sample_source
+fish_tilapia                115
+drinking_water               87
+fish_gusaw                   79
+effluent_water_untreated     71
+river_water                  70
+fish_kaolang                 52
+lake_water                   51
+fish_banak                   41
+effluent_water_treated       17
+
+## KEY CHECKS COMPLETED
+✓ Data schema confirmed
+✓ Labels (S/I/R) validated
+✓ Metadata fields present
+✓ MAR index calculated
+✓ Species taxonomy reviewed
+✓ Antibiotic testing consistency assessed
+⚠ WARNING: No time/date fields detected - trend analysis may be limited
+
+================================================================================
+Report generated successfully
