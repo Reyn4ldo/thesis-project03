@@ -77,3 +77,14 @@ spatial_analysis_*.json
 temporal_analysis_*.json
 temporal_analysis_*.csv
 source_attribution_*.json
+
+# Phase 6 - Operationalization outputs
+antibiograms/
+alerts/
+recommendations/
+batch_reports/
+phase6_outputs/
+operational_dashboard.json
+
+# Docker
+.dockerignore
