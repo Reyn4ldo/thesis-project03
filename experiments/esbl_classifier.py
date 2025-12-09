@@ -54,9 +54,21 @@ class ESBLClassifierExperiment(BaseExperiment):
         if 'esbl_encoded' not in df.columns:
             raise ValueError("ESBL status not found in dataframe. Check preprocessing.")
         
+        # Filter out samples where original esbl was missing
+        # The preprocessing fills missing values with 'missing' before encoding,
+        # resulting in 3+ classes. We only want binary classification.
+        if 'esbl' in df.columns:
+            # Filter based on original esbl column
+            valid_esbl_idx = df['esbl'].notna()
+            df_filtered = df[valid_esbl_idx].copy()
+        else:
+            # If original esbl column is not present, try to identify missing values
+            # by checking if esbl_encoded has more than 2 unique values
+            df_filtered = df.copy()
+        
         # Features: resistance profiles + metadata
         # Exclude target and original ESBL column
-        feature_cols = [col for col in df.columns if col not in [
+        feature_cols = [col for col in df_filtered.columns if col not in [
             'esbl', 'esbl_encoded', 'isolate_code', 'bacterial_species',
             'administrative_region', 'national_site', 'local_site',
             'sample_source'
@@ -70,13 +82,28 @@ class ESBLClassifierExperiment(BaseExperiment):
                            '_encoded', 'replicate', 'colony'
                        ])]
         
-        X = df[feature_cols].values
-        y = df['esbl_encoded'].values
+        X = df_filtered[feature_cols].values
+        y = df_filtered['esbl_encoded'].values.astype(int)
         
-        # Handle missing values in target
-        valid_idx = ~pd.isna(y)
-        X = X[valid_idx]
-        y = y[valid_idx].astype(int)
+        # Verify we have binary classification
+        unique_classes = np.unique(y)
+        if len(unique_classes) > 2:
+            print(f"WARNING: Found {len(unique_classes)} classes in ESBL target: {unique_classes}")
+            print("Filtering to keep only the two most common classes for binary classification")
+            # Count occurrences of each class
+            unique_vals, counts = np.unique(y, return_counts=True)
+            # Get the two classes with highest counts
+            # argsort returns indices in ascending order, so [-2:] gets the two largest
+            top_2_indices = np.argsort(counts)[-2:]
+            top_2_classes = unique_vals[top_2_indices]
+            # Filter to keep only these two classes
+            valid_idx = np.isin(y, top_2_classes)
+            X = X[valid_idx]
+            y = y[valid_idx]
+            # Remap to binary (0 and 1)
+            # Map the larger class value to 1, smaller to 0
+            y = (y == max(top_2_classes)).astype(int)
+            unique_classes = np.unique(y)
         
         print(f"Prepared ESBL classification data:")
         print(f"  Samples: {len(y)}")
@@ -113,26 +140,42 @@ class ESBLClassifierExperiment(BaseExperiment):
         y_pred = model.predict(X_test)
         y_proba = model.predict_proba(X_test)[:, 1] if hasattr(model, 'predict_proba') else y_pred
         
+        # Check if we have binary classification
+        unique_test = np.unique(y_test)
+        unique_pred = np.unique(y_pred)
+        
         # Compute metrics
         metrics = {
             'accuracy': accuracy_score(y_test, y_pred),
-            'precision': precision_score(y_test, y_pred, average='binary', zero_division=0),
-            'recall': recall_score(y_test, y_pred, average='binary', zero_division=0),
-            'f1': f1_score(y_test, y_pred, average='binary', zero_division=0),
             'confusion_matrix': confusion_matrix(y_test, y_pred).tolist()
         }
         
-        # Add probability-based metrics if available
-        if hasattr(model, 'predict_proba'):
-            metrics['auroc'] = roc_auc_score(y_test, y_proba)
-            metrics['auprc'] = average_precision_score(y_test, y_proba)
-            metrics['brier_score'] = brier_score_loss(y_test, y_proba)
-            
-            # Sensitivity at 95% specificity
-            fpr, tpr, thresholds = roc_curve(y_test, y_proba)
-            specificity = 1 - fpr
-            idx_95_spec = np.argmin(np.abs(specificity - 0.95))
-            metrics['sensitivity_at_95spec'] = tpr[idx_95_spec]
+        # For binary metrics, check if we have at least 2 classes in test set
+        if len(unique_test) >= 2:
+            metrics['precision'] = precision_score(y_test, y_pred, average='binary', zero_division=0)
+            metrics['recall'] = recall_score(y_test, y_pred, average='binary', zero_division=0)
+            metrics['f1'] = f1_score(y_test, y_pred, average='binary', zero_division=0)
+        else:
+            # Single class in test set - use macro averaging as fallback
+            print(f"WARNING: Only {len(unique_test)} class(es) in test set. Using macro averaging.")
+            metrics['precision'] = precision_score(y_test, y_pred, average='macro', zero_division=0)
+            metrics['recall'] = recall_score(y_test, y_pred, average='macro', zero_division=0)
+            metrics['f1'] = f1_score(y_test, y_pred, average='macro', zero_division=0)
+        
+        # Add probability-based metrics if available and we have binary classes
+        if hasattr(model, 'predict_proba') and len(unique_test) >= 2:
+            try:
+                metrics['auroc'] = roc_auc_score(y_test, y_proba)
+                metrics['auprc'] = average_precision_score(y_test, y_proba)
+                metrics['brier_score'] = brier_score_loss(y_test, y_proba)
+                
+                # Sensitivity at 95% specificity
+                fpr, tpr, thresholds = roc_curve(y_test, y_proba)
+                specificity = 1 - fpr
+                idx_95_spec = np.argmin(np.abs(specificity - 0.95))
+                metrics['sensitivity_at_95spec'] = tpr[idx_95_spec]
+            except ValueError as e:
+                print(f"WARNING: Could not compute probability-based metrics: {e}")
         
         return metrics
     
