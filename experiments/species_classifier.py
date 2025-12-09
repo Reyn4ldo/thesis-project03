@@ -24,18 +24,23 @@ class SpeciesClassifierExperiment(BaseExperiment):
     
     def prepare_data(self, df):
         """Prepare data for species classification."""
-        # Features: antibiogram vectors
-        feature_cols = [col for col in df.columns if 'antibiogram_' in col or '_resistant' in col]
-        
-        X = df[feature_cols].values
-        y = df['bacterial_species_encoded'].values if 'bacterial_species_encoded' in df.columns else None
-        
-        if y is None:
+        # Check if bacterial_species_encoded exists
+        if 'bacterial_species_encoded' not in df.columns:
             raise ValueError("Species encoding not found")
         
-        valid_idx = ~pd.isna(y)
-        X = X[valid_idx]
-        y = y[valid_idx].astype(int)
+        # Filter out samples where original bacterial_species was missing
+        # to avoid having 'missing' as a class
+        if 'bacterial_species' in df.columns:
+            valid_species_idx = df['bacterial_species'].notna()
+            df_filtered = df[valid_species_idx].copy()
+        else:
+            df_filtered = df.copy()
+        
+        # Features: antibiogram vectors
+        feature_cols = [col for col in df_filtered.columns if 'antibiogram_' in col or '_resistant' in col]
+        
+        X = df_filtered[feature_cols].values
+        y = df_filtered['bacterial_species_encoded'].values.astype(int)
         
         print(f"Species classification data:")
         print(f"  Samples: {len(y)}")
