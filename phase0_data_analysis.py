@@ -112,7 +112,7 @@ def generate_data_dictionary(df):
         data_dict['columns'][col] = col_info
     
     # Save to JSON
-    with open('data_dictionary.json', 'w') as f:
+    with open('data_dictionary.json', 'w', encoding='utf-8') as f:
         json.dump(data_dict, f, indent=2)
     
     print("✓ Data dictionary saved to 'data_dictionary.json'\n")
@@ -449,7 +449,7 @@ def generate_sanity_check_report(df, data_dict, missing_df, species_counts,
     
     # Save report
     report_text = "\n".join(report)
-    with open('sanity_check_report.txt', 'w') as f:
+    with open('sanity_check_report.txt', 'w', encoding='utf-8') as f:
         f.write(report_text)
     
     print("✓ Sanity-check report saved to 'sanity_check_report.txt'\n")
