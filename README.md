@@ -3,13 +3,54 @@
 ## Overview
 This repository contains the implementation of a comprehensive antibiotic resistance surveillance analysis pipeline. The project processes bacterial isolate data from environmental and aquaculture sources in the Philippines to analyze resistance patterns, develop predictive models, and support epidemiological decision-making.
 
-**Status**: All 5 phases complete ✅
+**Status**: All 6 phases complete ✅
+
+## 🚀 Getting Started
+
+**New to this project?** Start here:
+
+- **[How to Run (Super Simple!)](HOW_TO_RUN.md)** - TL;DR version - 3 commands to get started
+- **[Quick Start Guide](QUICKSTART.md)** - Get running in under 10 minutes
+- **[Installation Guide](INSTALLATION.md)** - Comprehensive setup instructions with troubleshooting
+- **[Security Notice](SECURITY.md)** - ⚠️ Known vulnerabilities and mitigation strategies
+
+### Quick Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Reyn4ldo/thesis-project03.git
+cd thesis-project03
+
+# RECOMMENDED: Install secure dependencies (without MLflow)
+pip install -r requirements-secure.txt
+
+# OR install with MLflow (has unfixed security vulnerability - see SECURITY.md)
+pip install -r requirements.txt
+
+# OR install minimal dependencies for basic analysis only
+pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
+
+# Run basic analysis
+python phase0_data_analysis.py  # Data understanding (30 seconds)
+python phase1_preprocessing.py  # Data preprocessing (1 minute)
+```
+
+For detailed instructions, see [HOW_TO_RUN.md](HOW_TO_RUN.md), [INSTALLATION.md](INSTALLATION.md), or [QUICKSTART.md](QUICKSTART.md)
+
+> **⚠️ Security Note**: MLflow has an **unfixed unsafe deserialization vulnerability** affecting all versions (0.5.0-3.4.0). **RECOMMENDED**: Use `requirements-secure.txt` which excludes MLflow. See [SECURITY.md](SECURITY.md) for full details.
 
 ## Project Structure
 
 ```
 thesis-project03/
-├── README.md                      # This file
+├── README.md                      # This file - Project overview
+├── HOW_TO_RUN.md                  # Simplest instructions (TL;DR)
+├── QUICKSTART.md                  # Quick start guide (10 minutes)
+├── INSTALLATION.md                # Complete installation guide
+├── SECURITY.md                    # Security vulnerability information
+├── requirements.txt               # All dependencies (with MLflow)
+├── requirements-secure.txt        # Secure dependencies (without MLflow - RECOMMENDED)
+├── requirements_api.txt           # API-only dependencies
 ├── data_dictionary.json           # Data schema documentation
 ├── raw - data.csv                 # Original dataset (583 isolates)
 ├── sample_data.csv                # Sample subset (50 isolates)
@@ -49,6 +90,14 @@ thesis-project03/
 │   ├── source_attribution.py     # Source comparison
 │   ├── visualization.py          # Visualization tools
 │   └── README.md                 # Module documentation
+├── operationalization/            # Phase 6: Production deployment
+│   ├── __init__.py
+│   ├── api.py                    # REST API
+│   ├── batch_pipeline.py         # Batch processing
+│   ├── antibiogram_generator.py  # Antibiogram reports
+│   ├── early_warning.py          # Alert system
+│   ├── therapy_recommender.py    # Treatment recommendations
+│   └── README.md                 # Module documentation
 ├── tests/                         # Unit tests
 │   └── test_preprocessing.py     # Preprocessing tests (19 tests)
 ├── phase0_data_analysis.py        # Phase 0: Data understanding
@@ -57,6 +106,10 @@ thesis-project03/
 ├── phase3_exploratory_analysis.py # Phase 3: Exploratory analysis
 ├── phase4_anomaly_detection.py    # Phase 4: Anomaly detection
 ├── phase5_spatiotemporal.py       # Phase 5: Spatio-temporal analysis
+├── phase6_operationalization.py   # Phase 6: Production deployment
+├── Dockerfile                     # Docker container configuration
+├── docker-compose.yml             # Docker Compose orchestration
+├── requirements_api.txt           # API dependencies
 ├── PHASE0_SUMMARY.md             # Phase 0 completion summary
 ├── PHASE1_SUMMARY.md             # Phase 1 completion summary
 ├── IMPLEMENTATION_COMPLETE.md    # Phase 1 implementation details
@@ -64,6 +117,8 @@ thesis-project03/
 ├── PHASE3_COMPLETE.md            # Phase 3 completion summary
 ├── PHASE4_COMPLETE.md            # Phase 4 completion summary
 ├── PHASE5_COMPLETE.md            # Phase 5 completion summary
+├── PHASE6_COMPLETE.md            # Phase 6 completion summary
+├── PROJECT_COMPLETE.md           # Overall project summary
 └── .gitignore
 ```
 
@@ -803,26 +858,52 @@ All models saved to `models/` directory:
 
 ## Installation and Setup
 
-### Requirements
+**📖 For detailed installation instructions, see:**
+- **[INSTALLATION.md](INSTALLATION.md)** - Comprehensive setup guide with troubleshooting
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide (get running in 10 minutes)
+
+### Quick Setup
+
 ```bash
-# Core dependencies
-pip install pandas numpy scikit-learn scipy joblib
+# Clone repository
+git clone https://github.com/Reyn4ldo/thesis-project03.git
+cd thesis-project03
 
-# Visualization
-pip install matplotlib seaborn
+# Install core dependencies
+pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
 
-# Machine learning
-pip install xgboost
-
-# Experiment tracking (optional)
-pip install mlflow
-
-# Association rules (optional)
-pip install mlxtend
-
-# Network analysis (optional)
-pip install networkx python-louvain
+# Or for API deployment
+pip install -r requirements_api.txt
 ```
+
+### Requirements (Brief Overview)
+
+**Core dependencies:**
+```bash
+pip install pandas numpy scikit-learn scipy joblib
+```
+
+**Visualization:**
+```bash
+pip install matplotlib seaborn
+```
+
+**Machine learning:**
+```bash
+pip install xgboost mlflow
+```
+
+**Advanced analysis:**
+```bash
+pip install mlxtend networkx python-louvain
+```
+
+**API (Phase 6):**
+```bash
+pip install fastapi uvicorn pydantic
+```
+
+For complete installation with all options, see [INSTALLATION.md](INSTALLATION.md)
 
 ### Running Complete Pipeline
 

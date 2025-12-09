@@ -1,0 +1,70 @@
+# Secure Requirements (Without MLflow)
+# Install with: pip install -r requirements-secure.txt
+#
+# This is a security-hardened version of requirements.txt that excludes
+# MLflow due to its unfixed unsafe deserialization vulnerability.
+
+# ============================================================================
+# CORE DEPENDENCIES (Required for all phases)
+# ============================================================================
+pandas==2.1.3
+numpy==1.24.3
+scikit-learn==1.3.2
+scipy==1.11.4
+joblib==1.3.2
+
+# ============================================================================
+# VISUALIZATION (Required for Phases 3, 4, 5)
+# ============================================================================
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# ============================================================================
+# MACHINE LEARNING (Required for Phase 2)
+# ============================================================================
+xgboost==2.0.2
+
+# ============================================================================
+# EXPERIMENT TRACKING
+# ============================================================================
+# MLflow excluded due to security concerns
+# Phase 2 will run without experiment tracking
+# Alternative: Use TensorBoard, Weights & Biases, or simple JSON logging
+
+# ============================================================================
+# ADVANCED ANALYTICS (Required for Phases 3, 4, 5)
+# ============================================================================
+# Association rule mining
+mlxtend==0.23.0
+
+# Network analysis
+networkx==3.2.1
+python-louvain==0.16
+
+# ============================================================================
+# API AND DEPLOYMENT (Required for Phase 6)
+# ============================================================================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+requests==2.31.0
+
+# ============================================================================
+# TESTING (Optional)
+# ============================================================================
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# ============================================================================
+# NOTES:
+# ============================================================================
+# This requirements file excludes MLflow for security reasons.
+# All phases will work except Phase 2 experiment tracking will be disabled.
+# Models will still be trained and saved, just without MLflow logging.
+#
+# For complete installation WITH MLflow (at your own risk):
+#   pip install -r requirements.txt
+#
+# For detailed installation instructions, see INSTALLATION.md
+# For security information, see SECURITY.md
