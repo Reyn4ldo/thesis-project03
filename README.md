@@ -21,10 +21,13 @@ This repository contains the implementation of a comprehensive antibiotic resist
 git clone https://github.com/Reyn4ldo/thesis-project03.git
 cd thesis-project03
 
-# Install ALL dependencies
+# RECOMMENDED: Install secure dependencies (without MLflow)
+pip install -r requirements-secure.txt
+
+# OR install with MLflow (has unfixed security vulnerability - see SECURITY.md)
 pip install -r requirements.txt
 
-# Or install minimal dependencies for basic analysis
+# OR install minimal dependencies for basic analysis only
 pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
 
 # Run basic analysis
@@ -34,7 +37,7 @@ python phase1_preprocessing.py  # Data preprocessing (1 minute)
 
 For detailed instructions, see [HOW_TO_RUN.md](HOW_TO_RUN.md), [INSTALLATION.md](INSTALLATION.md), or [QUICKSTART.md](QUICKSTART.md)
 
-> **⚠️ Security Note**: MLflow (optional dependency for Phase 2) has a known unsafe deserialization vulnerability with no patch available. See [SECURITY.md](SECURITY.md) for details and mitigation strategies. Safe for development/research use with local data.
+> **⚠️ Security Note**: MLflow has an **unfixed unsafe deserialization vulnerability** affecting all versions (0.5.0-3.4.0). **RECOMMENDED**: Use `requirements-secure.txt` which excludes MLflow. See [SECURITY.md](SECURITY.md) for full details.
 
 ## Project Structure
 
@@ -44,7 +47,9 @@ thesis-project03/
 ├── HOW_TO_RUN.md                  # Simplest instructions (TL;DR)
 ├── QUICKSTART.md                  # Quick start guide (10 minutes)
 ├── INSTALLATION.md                # Complete installation guide
-├── requirements.txt               # All dependencies
+├── SECURITY.md                    # Security vulnerability information
+├── requirements.txt               # All dependencies (with MLflow)
+├── requirements-secure.txt        # Secure dependencies (without MLflow - RECOMMENDED)
 ├── requirements_api.txt           # API-only dependencies
 ├── data_dictionary.json           # Data schema documentation
 ├── raw - data.csv                 # Original dataset (583 isolates)

@@ -1,5 +1,8 @@
-# Complete Requirements for Antibiotic Resistance Surveillance Project
-# Install all dependencies with: pip install -r requirements.txt
+# Secure Requirements (Without MLflow)
+# Install with: pip install -r requirements-secure.txt
+#
+# This is a security-hardened version of requirements.txt that excludes
+# MLflow due to its unfixed unsafe deserialization vulnerability.
 
 # ============================================================================
 # CORE DEPENDENCIES (Required for all phases)
@@ -22,20 +25,11 @@ seaborn==0.13.0
 xgboost==2.0.2
 
 # ============================================================================
-# EXPERIMENT TRACKING (OPTIONAL - Can be skipped if security is a concern)
+# EXPERIMENT TRACKING
 # ============================================================================
-# ⚠️  SECURITY WARNING: MLflow has an unfixed unsafe deserialization vulnerability
-# affecting ALL versions (0.5.0-3.4.0). No patch available as of December 2024.
-# 
-# RECOMMENDATION: Skip this dependency if deploying to production or if concerned
-# about security. Phase 2 can run without MLflow (just won't log experiments).
-#
-# To install WITHOUT MLflow, skip this line or use:
-#   pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn xgboost
-#
-# See SECURITY.md for full details and mitigation strategies.
-#
-# mlflow==2.22.4  # COMMENTED OUT BY DEFAULT - Uncomment only if needed
+# MLflow excluded due to security concerns
+# Phase 2 will run without experiment tracking
+# Alternative: Use TensorBoard, Weights & Biases, or simple JSON logging
 
 # ============================================================================
 # ADVANCED ANALYTICS (Required for Phases 3, 4, 5)
@@ -65,13 +59,12 @@ pytest-cov==4.1.0
 # ============================================================================
 # NOTES:
 # ============================================================================
-# - For minimal installation (Phases 0-1 only):
-#   pip install pandas numpy scikit-learn scipy joblib
+# This requirements file excludes MLflow for security reasons.
+# All phases will work except Phase 2 experiment tracking will be disabled.
+# Models will still be trained and saved, just without MLflow logging.
 #
-# - For API only (Phase 6):
-#   pip install -r requirements_api.txt
+# For complete installation WITH MLflow (at your own risk):
+#   pip install -r requirements.txt
 #
-# - Python version: 3.8 or higher (3.9 recommended)
-#
-# - For detailed installation instructions, see INSTALLATION.md
-# - For quick start guide, see QUICKSTART.md
+# For detailed installation instructions, see INSTALLATION.md
+# For security information, see SECURITY.md

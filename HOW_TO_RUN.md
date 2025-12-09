@@ -7,8 +7,8 @@
 git clone https://github.com/Reyn4ldo/thesis-project03.git
 cd thesis-project03
 
-# 2. Install Python packages
-pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
+# 2. Install Python packages (SECURE - without MLflow)
+pip install -r requirements-secure.txt
 
 # 3. Run the phases
 python phase0_data_analysis.py      # Analyzes data (30 sec)
@@ -18,12 +18,15 @@ python phase2_supervised_learning.py # Trains models (5-10 min)
 
 Done! Check the generated files and reports.
 
+> ⚠️ **Note**: Using `requirements-secure.txt` excludes MLflow (which has an unfixed security vulnerability). Models still train normally, just without experiment logging. See [SECURITY.md](SECURITY.md) for details.
+
 ---
 
 ## Need More Details?
 
 - **[QUICKSTART.md](QUICKSTART.md)** - 10-minute getting started guide
 - **[INSTALLATION.md](INSTALLATION.md)** - Complete installation with troubleshooting
+- **[SECURITY.md](SECURITY.md)** - Security information about MLflow vulnerability
 - **[README.md](README.md)** - Full project documentation
 
 ## What Each Phase Does

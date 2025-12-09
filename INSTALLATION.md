@@ -17,13 +17,26 @@ This guide provides step-by-step instructions for setting up and running the Ant
 
 ## Security Notice
 
-⚠️ **Important**: MLflow (optional dependency for Phase 2) has a known unsafe deserialization vulnerability affecting all versions 0.5.0 to 3.4.0, including the version used in this project (2.22.4). Currently, no patch is available.
+⚠️ **CRITICAL SECURITY INFORMATION**
 
-**Risk Level**: LOW for typical development/research use, MEDIUM-HIGH for production
+MLflow (optional dependency for Phase 2) has an **unfixed unsafe deserialization vulnerability** affecting **ALL versions** from 0.5.0 to 3.4.0. **No patch is currently available.**
 
-**Mitigation**: Safe for development/research with local, trusted data. For production deployment, see [SECURITY.md](SECURITY.md) for detailed mitigation strategies and alternatives.
+**RECOMMENDATION**: Use `requirements-secure.txt` which excludes MLflow:
+```bash
+pip install -r requirements-secure.txt
+```
 
-**Action**: Read [SECURITY.md](SECURITY.md) before deploying to production.
+**Risk Level**: 
+- **LOW** for development/research with local, trusted data
+- **MEDIUM-HIGH** for production deployment
+
+**What happens without MLflow?**
+- ✅ All phases work normally
+- ✅ Models are still trained and saved
+- ✅ Only experiment tracking/logging is disabled
+- ✅ No security vulnerabilities
+
+**Action**: Read [SECURITY.md](SECURITY.md) for full details, alternatives, and mitigation strategies.
 
 ---
 
@@ -82,7 +95,26 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-#### Step 3: Install Core Dependencies
+#### Step 3: Install Dependencies
+
+**RECOMMENDED: Secure Installation (without MLflow):**
+```bash
+pip install -r requirements-secure.txt
+```
+
+**OR Standard Installation (with MLflow - has security vulnerability):**
+```bash
+pip install -r requirements.txt
+```
+
+**OR Minimal Installation (basic analysis only):**
+```bash
+pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
+```
+
+---
+
+**Custom Installation by Phase:**
 
 The project uses different dependency sets for different purposes:
 
@@ -91,9 +123,14 @@ The project uses different dependency sets for different purposes:
 pip install pandas numpy scikit-learn scipy joblib
 ```
 
-**For supervised learning (Phase 2):**
+**For supervised learning WITHOUT MLflow (Phase 2 - RECOMMENDED):**
 ```bash
-pip install pandas numpy scikit-learn scipy joblib mlflow xgboost
+pip install pandas numpy scikit-learn scipy joblib xgboost
+```
+
+**For supervised learning WITH MLflow (Phase 2 - has security risk):**
+```bash
+pip install pandas numpy scikit-learn scipy joblib mlflow==2.22.4 xgboost
 ```
 
 **For visualization (Phases 3-5):**
