@@ -90,14 +90,16 @@ class ESBLClassifierExperiment(BaseExperiment):
         if len(unique_classes) > 2:
             print(f"WARNING: Found {len(unique_classes)} classes in ESBL target: {unique_classes}")
             print("Filtering to keep only the two most common classes for binary classification")
-            # Keep only the two most common classes
-            class_counts = np.bincount(y)
-            # Get indices of two most common classes
-            top_2_classes = np.argsort(class_counts)[-2:]
+            # Count occurrences of each class
+            unique_vals, counts = np.unique(y, return_counts=True)
+            # Get the two classes with highest counts
+            top_2_indices = np.argsort(counts)[-2:]
+            top_2_classes = unique_vals[top_2_indices]
+            # Filter to keep only these two classes
             valid_idx = np.isin(y, top_2_classes)
             X = X[valid_idx]
             y = y[valid_idx]
-            # Remap to 0 and 1
+            # Remap to 0 and 1 (smaller class value -> 0, larger -> 1)
             y = (y == top_2_classes[1]).astype(int)
             unique_classes = np.unique(y)
         
