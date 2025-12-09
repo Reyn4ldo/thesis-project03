@@ -241,7 +241,7 @@ def generate_summary_report(df, processed_df, train_df, val_df, test_df):
     
     report_text = "".join(report)
     
-    with open('PHASE1_SUMMARY.md', 'w') as f:
+    with open('PHASE1_SUMMARY.md', 'w', encoding='utf-8') as f:
         f.write(report_text)
     
     print("\n✓ Summary report saved to 'PHASE1_SUMMARY.md'")
