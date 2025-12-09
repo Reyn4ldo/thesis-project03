@@ -12,6 +12,8 @@ import unittest
 import pandas as pd
 import numpy as np
 import sys
+import tempfile
+import os
 from pathlib import Path
 
 # Add parent directory to path
@@ -377,9 +379,6 @@ class TestUnicodeEncoding(unittest.TestCase):
     
     def test_unicode_file_write(self):
         """Test that files with Unicode characters can be written correctly."""
-        import tempfile
-        import os
-        
         # Create a temporary file
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False, suffix='.md') as f:
             temp_path = f.name
