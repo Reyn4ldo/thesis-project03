@@ -110,7 +110,7 @@ pip install xgboost==2.0.2
 pip install matplotlib==3.8.2 seaborn==0.13.0
 
 # Experiment tracking
-pip install mlflow==2.9.1
+pip install mlflow==2.22.4
 
 # Association rules and network analysis
 pip install mlxtend==0.23.0 networkx==3.2.1 python-louvain==0.16
