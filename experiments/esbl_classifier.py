@@ -93,14 +93,16 @@ class ESBLClassifierExperiment(BaseExperiment):
             # Count occurrences of each class
             unique_vals, counts = np.unique(y, return_counts=True)
             # Get the two classes with highest counts
+            # argsort returns indices in ascending order, so [-2:] gets the two largest
             top_2_indices = np.argsort(counts)[-2:]
             top_2_classes = unique_vals[top_2_indices]
             # Filter to keep only these two classes
             valid_idx = np.isin(y, top_2_classes)
             X = X[valid_idx]
             y = y[valid_idx]
-            # Remap to 0 and 1 (smaller class value -> 0, larger -> 1)
-            y = (y == top_2_classes[1]).astype(int)
+            # Remap to binary (0 and 1)
+            # Map the larger class value to 1, smaller to 0
+            y = (y == max(top_2_classes)).astype(int)
             unique_classes = np.unique(y)
         
         print(f"Prepared ESBL classification data:")
