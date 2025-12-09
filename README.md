@@ -12,6 +12,7 @@ This repository contains the implementation of a comprehensive antibiotic resist
 - **[How to Run (Super Simple!)](HOW_TO_RUN.md)** - TL;DR version - 3 commands to get started
 - **[Quick Start Guide](QUICKSTART.md)** - Get running in under 10 minutes
 - **[Installation Guide](INSTALLATION.md)** - Comprehensive setup instructions with troubleshooting
+- **[Security Notice](SECURITY.md)** - ⚠️ Known vulnerabilities and mitigation strategies
 
 ### Quick Installation
 
@@ -32,6 +33,8 @@ python phase1_preprocessing.py  # Data preprocessing (1 minute)
 ```
 
 For detailed instructions, see [HOW_TO_RUN.md](HOW_TO_RUN.md), [INSTALLATION.md](INSTALLATION.md), or [QUICKSTART.md](QUICKSTART.md)
+
+> **⚠️ Security Note**: MLflow (optional dependency for Phase 2) has a known unsafe deserialization vulnerability with no patch available. See [SECURITY.md](SECURITY.md) for details and mitigation strategies. Safe for development/research use with local data.
 
 ## Project Structure
 

@@ -5,12 +5,25 @@ This guide provides step-by-step instructions for setting up and running the Ant
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
+- [Security Notice](#security-notice)
 - [Installation](#installation)
   - [Option 1: Local Installation (Recommended for Development)](#option-1-local-installation-recommended-for-development)
   - [Option 2: Docker Installation (Recommended for Production)](#option-2-docker-installation-recommended-for-production)
 - [Running the Project](#running-the-project)
 - [Verification](#verification)
 - [Troubleshooting](#troubleshooting)
+
+---
+
+## Security Notice
+
+⚠️ **Important**: MLflow (optional dependency for Phase 2) has a known unsafe deserialization vulnerability affecting all versions 0.5.0 to 3.4.0, including the version used in this project (2.22.4). Currently, no patch is available.
+
+**Risk Level**: LOW for typical development/research use, MEDIUM-HIGH for production
+
+**Mitigation**: Safe for development/research with local, trusted data. For production deployment, see [SECURITY.md](SECURITY.md) for detailed mitigation strategies and alternatives.
+
+**Action**: Read [SECURITY.md](SECURITY.md) before deploying to production.
 
 ---
 

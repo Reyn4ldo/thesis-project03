@@ -24,6 +24,9 @@ xgboost==2.0.2
 # ============================================================================
 # EXPERIMENT TRACKING (Optional for Phase 2)
 # ============================================================================
+# WARNING: MLflow has a known unsafe deserialization vulnerability (0.5.0-3.4.0)
+# with no patch available. Safe for development/research with local trusted data.
+# See SECURITY.md for details and mitigation strategies.
 mlflow==2.22.4
 
 # ============================================================================
