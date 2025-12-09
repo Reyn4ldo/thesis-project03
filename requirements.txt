@@ -1,0 +1,66 @@
+# Complete Requirements for Antibiotic Resistance Surveillance Project
+# Install all dependencies with: pip install -r requirements.txt
+
+# ============================================================================
+# CORE DEPENDENCIES (Required for all phases)
+# ============================================================================
+pandas==2.1.3
+numpy==1.24.3
+scikit-learn==1.3.2
+scipy==1.11.4
+joblib==1.3.2
+
+# ============================================================================
+# VISUALIZATION (Required for Phases 3, 4, 5)
+# ============================================================================
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# ============================================================================
+# MACHINE LEARNING (Required for Phase 2)
+# ============================================================================
+xgboost==2.0.2
+
+# ============================================================================
+# EXPERIMENT TRACKING (Optional for Phase 2)
+# ============================================================================
+mlflow==2.9.1
+
+# ============================================================================
+# ADVANCED ANALYTICS (Required for Phases 3, 4, 5)
+# ============================================================================
+# Association rule mining
+mlxtend==0.23.0
+
+# Network analysis
+networkx==3.2.1
+python-louvain==0.16
+
+# ============================================================================
+# API AND DEPLOYMENT (Required for Phase 6)
+# ============================================================================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+python-multipart==0.0.6
+requests==2.31.0
+
+# ============================================================================
+# TESTING (Optional)
+# ============================================================================
+pytest==7.4.3
+pytest-cov==4.1.0
+
+# ============================================================================
+# NOTES:
+# ============================================================================
+# - For minimal installation (Phases 0-1 only):
+#   pip install pandas numpy scikit-learn scipy joblib
+#
+# - For API only (Phase 6):
+#   pip install -r requirements_api.txt
+#
+# - Python version: 3.8 or higher (3.9 recommended)
+#
+# - For detailed installation instructions, see INSTALLATION.md
+# - For quick start guide, see QUICKSTART.md

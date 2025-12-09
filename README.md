@@ -9,6 +9,7 @@ This repository contains the implementation of a comprehensive antibiotic resist
 
 **New to this project?** Start here:
 
+- **[How to Run (Super Simple!)](HOW_TO_RUN.md)** - TL;DR version - 3 commands to get started
 - **[Quick Start Guide](QUICKSTART.md)** - Get running in under 10 minutes
 - **[Installation Guide](INSTALLATION.md)** - Comprehensive setup instructions with troubleshooting
 
@@ -19,7 +20,10 @@ This repository contains the implementation of a comprehensive antibiotic resist
 git clone https://github.com/Reyn4ldo/thesis-project03.git
 cd thesis-project03
 
-# Install dependencies
+# Install ALL dependencies
+pip install -r requirements.txt
+
+# Or install minimal dependencies for basic analysis
 pip install pandas numpy scikit-learn scipy joblib matplotlib seaborn
 
 # Run basic analysis
@@ -27,15 +31,18 @@ python phase0_data_analysis.py  # Data understanding (30 seconds)
 python phase1_preprocessing.py  # Data preprocessing (1 minute)
 ```
 
-For detailed instructions, see [INSTALLATION.md](INSTALLATION.md) or [QUICKSTART.md](QUICKSTART.md)
+For detailed instructions, see [HOW_TO_RUN.md](HOW_TO_RUN.md), [INSTALLATION.md](INSTALLATION.md), or [QUICKSTART.md](QUICKSTART.md)
 
 ## Project Structure
 
 ```
 thesis-project03/
 ├── README.md                      # This file - Project overview
-├── INSTALLATION.md                # Complete installation guide
+├── HOW_TO_RUN.md                  # Simplest instructions (TL;DR)
 ├── QUICKSTART.md                  # Quick start guide (10 minutes)
+├── INSTALLATION.md                # Complete installation guide
+├── requirements.txt               # All dependencies
+├── requirements_api.txt           # API-only dependencies
 ├── data_dictionary.json           # Data schema documentation
 ├── raw - data.csv                 # Original dataset (583 isolates)
 ├── sample_data.csv                # Sample subset (50 isolates)
