@@ -49,6 +49,42 @@ Thumbs.db
 *.temp
 processed_data/
 temp_data/
+processed_data.csv
+train_data.csv
+val_data.csv
+test_data.csv
+preprocessing_pipeline.pkl
+preprocessing_pipeline.json
+
+# MLflow
+mlruns/
+mlflow.db
+mlartifacts/
+
+# Model artifacts
+models/*.pkl
+*.joblib
 
 # Logs
 *.log
+
+# Results and visualizations
+results/
+visualizations/
+*.png
+*.pdf
+spatial_analysis_*.json
+temporal_analysis_*.json
+temporal_analysis_*.csv
+source_attribution_*.json
+
+# Phase 6 - Operationalization outputs
+antibiograms/
+alerts/
+recommendations/
+batch_reports/
+phase6_outputs/
+operational_dashboard.json
+
+# Docker
+.dockerignore
